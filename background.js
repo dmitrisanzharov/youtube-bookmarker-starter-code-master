@@ -10,3 +10,9 @@ chrome.tabs.onUpdated.addListener((tabId, tab) => {
     }
   });
   
+
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === "complete" && tab.url?.includes("youtube.com")) {
+        console.log("YouTube tab opened/loaded:", tab.url);
+    }
+});

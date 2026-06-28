@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "my extension one",
+    "version": "0.1.0",
+    "description": "to do stuff",
+    "host_permissions": ["https://*.youtube.com/*"],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
