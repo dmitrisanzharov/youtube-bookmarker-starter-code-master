@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "My YT Bookmarks",
+    "name": "My YT Bookmarks..",
     "version": "0.1.0",
     "description": "Saving timestamps in YT videos",
     "permissions": ["storage", "tabs"],
@@ -19,5 +19,10 @@
             "resources": ["assets/bookmark.png", "assets/play.png", "assets/delete.png", "assets/save.png"],
             "matches": ["https://*.youtube.com/*"]
         }
-    ]
+    ],
+    "action": {
+        "default_title": "Victor Extension 1",
+        "default_icon": "assets/ext-icon.png",
+        "default_popup": "my_popup.html"
+    }
 }
