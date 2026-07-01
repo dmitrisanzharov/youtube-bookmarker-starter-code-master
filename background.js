@@ -1,16 +1,12 @@
-console.log("hello starting console");
+console.log('background.js loaded');
 
-// chrome.tabs.onUpdated.addListener((tabId, tab) => {
-//     if (tab.url && tab.url.includes("*youtube.com*")) {
-//       console.log("hello");
-//     }
-//     if (tab.url && tab.url.includes("youtube.com/watch")) {
-//       const queryParameters = tab.url.split("?")[1];
-//       const urlParameters = new URLSearchParams(queryParameters);
+// console.log('all tabs', chrome.tabs);
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   
-//       chrome.tabs.sendMessage(tabId, {
-//         type: "NEW",
-//         videoId: urlParameters.get("v"),
-//       });
-//     }
-//   });
+    if (changeInfo.status === 'complete' && tab.url.includes('youtube.com/watch')) {
+        console.log('YouTube video page loaded:', tab.url);
+    }
+
+
+});
