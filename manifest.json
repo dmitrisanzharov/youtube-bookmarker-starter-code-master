@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "My YT Bookmarks..",
+    "name": "aaa_Chrome_Extension_By_Dmitri",
     "version": "0.1.0",
     "description": "Saving timestamps in YT videos",
     "permissions": ["storage", "tabs"],
@@ -10,7 +10,7 @@
     },
     "content_scripts": [
         {
-            "matches": ["https://*.youtube.com/*"],
+             "matches": ["<all_urls>"],
             "js": ["my_content.js"]
         }
     ],
@@ -21,7 +21,7 @@
         }
     ],
     "action": {
-        "default_title": "Victor Extension 1",
+        "default_title": "aaa_Chrome_Extension_By_Dmitri",
         "default_icon": "assets/ext-icon.png",
         "default_popup": "my_popup.html"
     }
