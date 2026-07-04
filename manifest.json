@@ -6,11 +6,11 @@
     "permissions": ["storage", "tabs"],
     "host_permissions": ["https://*.youtube.com/*"],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "my_background.js"
     },
     "content_scripts": [
         {
-             "matches": ["<all_urls>"],
+             "matches": ["https://*.youtube.com/*"],
             "js": ["my_content.js"]
         }
     ],
