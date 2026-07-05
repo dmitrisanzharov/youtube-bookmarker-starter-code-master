@@ -1,17 +1,13 @@
 (async () => {
-    const NEW_STRING = 'NEW';
-
-    const all = await chrome.storage.local.get();
-    console.log('all global vars', all);
-
-
     console.log('my_content.js loaded');
 
+    const { typeNew } = await chrome.storage.local.get('typeNew');
+    console.log("newString: ", typeNew);
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log('my_content.js received message:', message);
 
-        if (message.type === NEW_STRING) {
+        if (message.type === typeNew) {
             const videoId = message.videoId;
             console.log('Video ID:', videoId);
         }
