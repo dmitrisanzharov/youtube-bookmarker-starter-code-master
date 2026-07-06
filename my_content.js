@@ -1,6 +1,27 @@
 (async () => {
     console.log('my_content.js loaded');
 
+    let videoId = 'none';
+    let allBookmarksForThisVideo = [];
+
+    function addNewBookmarkEventHandler() {
+            console.log('============================');
+            console.log('videoId', videoId);
+            const videoInSeconds = document.getElementsByClassName("video-stream")[0].currentTime; 
+            console.log("videoInSeconds: ", videoInSeconds);
+
+            // create bookmark
+            const newBookmark = {
+                time: videoInSeconds,
+                desc: "Bookmark at " + String(videoInSeconds),
+            };
+            
+            // add to the array
+            allBookmarksForThisVideo = [...allBookmarksForThisVideo, newBookmark].sort((a, b) => a.time - b.time); // sort by time
+            console.log("allBookmarksForThisVideo: ", allBookmarksForThisVideo);
+
+    };
+
     function waitForElement(selector, callback) {
         const existing = document.querySelector(selector);
 
@@ -42,6 +63,7 @@
 
         // add button
         const bookmarkBtn = document.createElement('img');
+        bookmarkBtn.addEventListener('click', addNewBookmarkEventHandler);
         bookmarkBtn.src = chrome.runtime.getURL('assets/bookmark.png');
         bookmarkBtn.className = 'ytp-button ' + 'bookmark-btn';
         bookmarkBtn.title = 'Click to bookmark current timestamp';
@@ -50,31 +72,17 @@
             height: '60px'
         });
         devSpaceDiv.appendChild(bookmarkBtn);
-
-        // add element to the dom
-        const redSquare = document.createElement('div');
-        Object.assign(redSquare.style, {
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            backgroundColor: 'red',
-            marginLeft: '10px'
-        });
-
-        waitForElement('#top-row ytd-menu-renderer', (container) => {
-            console.log('Found!', container);
-            container.appendChild(redSquare);
-        });
     }
 
     makeDevSpace();
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('my_content.js received message:', message);
+        // console.log('my_content.js received message:', message);
 
         if (message.type === 'NEW') {
-            const videoId = message.videoId;
+            videoId = message.videoId;
             console.log('Video ID:', videoId);
+
         }
     });
 })();
