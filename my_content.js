@@ -1,6 +1,29 @@
 (async () => {
     console.log('my_content.js loaded');
 
+    function waitForElement(selector, callback) {
+        const existing = document.querySelector(selector);
+
+        if (existing) {
+            callback(existing);
+            return;
+        }
+
+        const observer = new MutationObserver(() => {
+            const element = document.querySelector(selector);
+
+            if (element) {
+                observer.disconnect();
+                callback(element);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
     function makeDevSpace() {
         const devSpaceDiv = document.createElement('div');
         Object.assign(devSpaceDiv.style, {
@@ -27,6 +50,21 @@
             height: '60px'
         });
         devSpaceDiv.appendChild(bookmarkBtn);
+
+        // add element to the dom
+        const redSquare = document.createElement('div');
+        Object.assign(redSquare.style, {
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            backgroundColor: 'red',
+            marginLeft: '10px'
+        });
+
+        waitForElement('#top-row ytd-menu-renderer', (container) => {
+            console.log('Found!', container);
+            container.appendChild(redSquare);
+        });
     }
 
     makeDevSpace();
