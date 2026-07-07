@@ -50,8 +50,8 @@
         Object.assign(devSpaceDiv.style, {
             position: 'fixed',
             bottom: '0',
-            left: '0',
-            width: '100%',
+            right: 0,
+            width: '20%',
             background: 'gray',
             color: 'black',
             fontSize: '20px',
