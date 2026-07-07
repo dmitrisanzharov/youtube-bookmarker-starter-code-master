@@ -57,6 +57,7 @@
                     chrome.storage.local.set({
                         [videoId]: [newBookmark]
                     });
+                    
                 }
 
            });           
