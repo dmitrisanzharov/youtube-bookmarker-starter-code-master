@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // check current tab and its url
     const tab = await getCurrentTab();
+    const videoId = convertUrlParamsToObject(tab.url).v;
     console.log('Current tab: ', tab);
     console.log('Current tab URL: ', tab.url);
 
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
             // does it have bookmarks
-            const videoId = convertUrlParamsToObject(tab.url).v;
+
             const bookmarks = result[videoId] || [];
             console.log('Bookmarks for this video: ', bookmarks);
 
@@ -65,6 +66,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         });
 
+
+        let deleteBtn = document.getElementById('deleteAll');
+        
+        deleteBtn.addEventListener('click', () => {
+            chrome.storage.local.remove(videoId, () => {
+
+                // update the UI after deletion 
+                const popupContainer = document.getElementById('popup_container');
+                popupContainer.innerHTML = '';
+                const noBookmarksMessage = document.createElement('p');
+                noBookmarksMessage.textContent = 'No bookmarks yet.';
+                popupContainer.appendChild(noBookmarksMessage);
+
+            });
+        });
+
+
+
+        // end of "DOMContentLoaded" thingy
     }
 
 
