@@ -125,7 +125,13 @@
         if (message.type === 'NEW') {
             videoId = message.videoId;
             console.log('Video ID:', videoId);
-
         }
+
+        if (message.type === 'MOVE_TIMESTAMP') {
+            const video = document.querySelector('video');
+            if (video) video.currentTime = message.time;
+        }
+
+
     });
 })();
